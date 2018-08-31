@@ -9,6 +9,7 @@ import com.couchbase.client.java.AsyncBucket;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AppConfigProvider {
 	
@@ -31,5 +32,26 @@ public class AppConfigProvider {
 	@Bean(name = "asyncCouchbaseBucket", destroyMethod = "close")
 	public AsyncBucket asyncCouchbaseBucket() {
 		return couchbaseBucket().async();
+	}
+	
+	@Bean(name = "jacksonMapper")
+	public ObjectMapper jacksonMapper() {
+		return new ObjectMapper();
+	}
+
+	public List<String> getBaseURIs() {
+		return baseURIs;
+	}
+
+	public void setBaseURIs(List<String> baseURIs) {
+		this.baseURIs = baseURIs;
+	}
+
+	public String getBucketName() {
+		return bucketName;
+	}
+
+	public void setBucketName(String bucketName) {
+		this.bucketName = bucketName;
 	}
 }

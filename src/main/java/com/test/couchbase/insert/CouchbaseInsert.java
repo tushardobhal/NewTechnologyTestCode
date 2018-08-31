@@ -23,7 +23,7 @@ public class CouchbaseInsert {
 			obj.put("firstName", "tushar");
 			obj.put("lastName", "dobhal");
 			obj.put("age",  23);
-			JsonDocument doc =JsonDocument.create("name", obj);
+			JsonDocument doc = JsonDocument.create("name", obj);
 			bucket.upsert(doc);
 			LOGGER.info("Time Taken = {} ms", (System.currentTimeMillis() - t1));
 		} catch (Exception e) {

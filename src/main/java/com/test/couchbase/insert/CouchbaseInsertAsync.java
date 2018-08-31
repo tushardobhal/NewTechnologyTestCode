@@ -1,5 +1,6 @@
-package com.couchbase.insert;
+package com.test.couchbase.insert;
 
 public class CouchbaseInsertAsync {
-
+	
+	
 }

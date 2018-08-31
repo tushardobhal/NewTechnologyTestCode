@@ -1,4 +1,4 @@
-package com.couchbase.insert;
+package com.test.couchbase.insert;
 
 import java.util.ArrayList;
 import java.util.List;

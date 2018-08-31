@@ -1,4 +1,4 @@
-package com.couchbase.query;
+package com.test.couchbase.query;
 
 public class CouchbaseQueryAsync {
 

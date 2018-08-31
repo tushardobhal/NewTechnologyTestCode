@@ -1,4 +1,3 @@
 spring:
    profiles: test
-   couchbase:
-      config.load: couchbaseConfig
+   test.app.config.load: applicationConfig

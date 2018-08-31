@@ -14,15 +14,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class AppConfigProvider {
 	
-	@Value("test.couchbase.config.load")
-	private String couchbaseConfig;
+	@Value("test.app.config.load")
+	private String applicationConfig;
 	
 	@Autowired
 	private AppConfigRepository repository;
 	
 	@Bean("appConfig")
 	public AppConfigVO appConfig() {
-		return repository.findById(couchbaseConfig).isPresent() ? repository.findById(couchbaseConfig).get() : null;
+		return repository.findById(applicationConfig).isPresent() ? repository.findById(applicationConfig).get() : null;
 	}
 	
 	@Bean(name = "couchbaseCluster", destroyMethod = "disconnect")

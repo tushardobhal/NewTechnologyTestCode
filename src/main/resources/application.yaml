@@ -1,8 +1,4 @@
 spring:
    profiles: test
    couchbase:
-      cluster:
-         uris: http://localhost:8091
-         bucket:
-            name: sample-bucket
-            password: 
+      config.load: couchbaseConfig

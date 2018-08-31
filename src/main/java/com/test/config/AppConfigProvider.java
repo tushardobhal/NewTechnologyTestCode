@@ -1,7 +1,6 @@
 package com.test.config;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +14,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class AppConfigProvider {
 	
-	@Value("couchbase.cluster.uris")
-	private List<String> baseURIs;
+	@Value("test.couchbase.config.load")
+	private String couchbaseConfig;
 	
-	@Value("couchbase.cluster.bucket.name")
-	private String bucketName;
+	@Autowired
+	private AppConfigRepository repository;
+	
+	@Bean("appConfig")
+	public AppConfigVO appConfig() {
+		return repository.findById(couchbaseConfig).isPresent() ? repository.findById(couchbaseConfig).get() : null;
+	}
 	
 	@Bean(name = "couchbaseCluster", destroyMethod = "disconnect")
 	public Cluster couchbaseCluster() {
-		return CouchbaseCluster.create(baseURIs);
+		return CouchbaseCluster.create(appConfig().getBaseURIList());
 	}
 	
 	@Bean(name = "couchbaseBucket", destroyMethod = "close")
 	public Bucket couchbaseBucket() {
-		return couchbaseCluster().openBucket(bucketName);
+		return couchbaseCluster().openBucket(appConfig().getBucketName());
 	}
 	
 	@Bean(name = "asyncCouchbaseBucket", destroyMethod = "close")
@@ -41,19 +45,4 @@ public class AppConfigProvider {
 		return new ObjectMapper();
 	}
 
-	public List<String> getBaseURIs() {
-		return baseURIs;
-	}
-
-	public void setBaseURIs(List<String> baseURIs) {
-		this.baseURIs = baseURIs;
-	}
-
-	public String getBucketName() {
-		return bucketName;
-	}
-
-	public void setBucketName(String bucketName) {
-		this.bucketName = bucketName;
-	}
 }

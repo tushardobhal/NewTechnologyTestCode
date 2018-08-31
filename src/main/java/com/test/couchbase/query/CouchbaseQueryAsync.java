@@ -15,7 +15,7 @@ import com.couchbase.client.java.query.AsyncN1qlQueryRow;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.SimpleN1qlQuery;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.config.AppConfigProvider;
+import com.test.config.AppConfigVO;
 import com.test.dao.Name;
 
 import rx.Observable;
@@ -25,7 +25,7 @@ public class CouchbaseQueryAsync {
 private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseQueryAsync.class);
 	
 	@Autowired
-	private AppConfigProvider appConfig;
+	private AppConfigVO appConfig;
 
 	@Autowired
 	@Qualifier("asyncCouchbaseBucket")

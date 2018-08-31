@@ -15,7 +15,7 @@ import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.N1qlQueryResult;
 import com.couchbase.client.java.query.N1qlQueryRow;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.config.AppConfigProvider;
+import com.test.config.AppConfigVO;
 import com.test.dao.Name;
 
 @Component
@@ -27,7 +27,7 @@ public class CouchbaseQuery {
 	private Bucket bucket;
 	
 	@Autowired
-	private AppConfigProvider appConfig;
+	private AppConfigVO appConfig;
 	
 	@Autowired
 	@Qualifier("jacksonMapper")

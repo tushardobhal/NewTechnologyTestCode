@@ -5,6 +5,7 @@ public class Name {
 	String firstName;
 	String lastName;
 	int age;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -27,5 +28,10 @@ public class Name {
 	
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "Name [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
 	}
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.couchbase.client.core.time.Delay;
 import com.couchbase.client.java.AsyncBucket;
@@ -22,12 +23,13 @@ import com.test.dao.Name;
 
 import rx.Observable;
 
+@Component
 public class CouchbaseInsertAsync {
-private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseInsert.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseInsert.class);
 	
 	@Autowired
 	@Qualifier("asyncCouchbaseBucket")
-	private AsyncBucket asyncbucket;
+	private AsyncBucket asyncBucket;
 	
 	@Autowired
 	@Qualifier("jacksonMapper")
@@ -43,7 +45,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(CouchbaseInsert.cla
 		
 		Observable.from(names).flatMap(record -> {
 			onEachRecordAction(record);
-			return asyncbucket.upsert(convert(record));
+			return asyncBucket.upsert(convert(record));
 		}, error -> {
 			onErrorAction(error);
 			return null;

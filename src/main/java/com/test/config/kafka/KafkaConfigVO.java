@@ -14,6 +14,12 @@ public class KafkaConfigVO {
 	@Field
 	private String valueSerializer;
 	@Field
+	private String keyDeserializer;
+	@Field
+	private String valueDeserializer;
+	@Field
+	private String groupId;
+	@Field
 	private String topic;
 	@Field
 	private String type;
@@ -54,6 +60,33 @@ public class KafkaConfigVO {
 		this.valueSerializer = valueSerializer;
 	}
 	
+	@JsonProperty("key.deserializer")
+	public String getKeyDeserializer() {
+		return keyDeserializer;
+	}
+
+	public void setKeyDeserializer(String keyDeserializer) {
+		this.keyDeserializer = keyDeserializer;
+	}
+
+	@JsonProperty("value.deserializer")
+	public String getValueDeserializer() {
+		return valueDeserializer;
+	}
+
+	public void setValueDeserializer(String valueDeserializer) {
+		this.valueDeserializer = valueDeserializer;
+	}
+
+	@JsonProperty("group.id")
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
 	@JsonProperty("topic")
 	public String getTopic() {
 		return topic;

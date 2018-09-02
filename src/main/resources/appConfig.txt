@@ -3,7 +3,8 @@ applicationConfig
 	id: "applicationConfig",
 	baseURIs: "http://localhost:8091", 
 	bucketName: "spring-boot-sample",
-	kafkaProducerConfig: "sampleProducer", 
+	kafkaProducerConfig: "sampleProducer",
+	kafkaConsumerConfig: "sampleConsumer", 
 	type: "applicationConfig" 
 }
 
@@ -14,6 +15,18 @@ sampleProducer
 	zookeeperConnect: "http://localhost:2090", 
 	keySerializer: "org.apache.kafka.common.serialization.StringSerializer", 
 	valueSerializer: "org.apache.kafka.common.serialization.StringSerializer", 
+	topic: "test-topic", 
+	type: "kafkaConfig"
+}
+
+sampleConsumer
+{
+	id: "sampleConsumer", 
+	bootstrapServers: "http://localhost:9092",
+	zookeeperConnect: "http://localhost:2090", 
+	groupId: "test-group", 
+	keyDeserializer: "org.apache.kafka.common.serialization.StringDeserializer", 
+	valueDeserializer: "org.apache.kafka.common.serialization.StringDeserializer", 
 	topic: "test-topic", 
 	type: "kafkaConfig"
 }

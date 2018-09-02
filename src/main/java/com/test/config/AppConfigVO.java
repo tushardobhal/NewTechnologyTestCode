@@ -13,6 +13,8 @@ public class AppConfigVO {
 	private String bucketName;
 	@Field
 	private String kafkaProducerConfig;
+	@Field 
+	private String kafkaConsumerConfig;
 	@Field
 	private String type;
 	
@@ -36,14 +38,6 @@ public class AppConfigVO {
 		this.bucketName = bucketName;
 	}
 	
-	public String getType() {
-		return type;
-	}
-
-	public void seType(String type) {
-		this.type = type;
-	}
-
 	public String getKafkaProducerConfig() {
 		return kafkaProducerConfig;
 	}
@@ -52,7 +46,20 @@ public class AppConfigVO {
 		this.kafkaProducerConfig = kafkaProducerConfig;
 	}
 
-	public void setType(String type) {
+	public String getKafkaConsumerConfig() {
+		return kafkaConsumerConfig;
+	}
+
+	public void setKafkaConsumerConfig(String kafkaConsumerConfig) {
+		this.kafkaConsumerConfig = kafkaConsumerConfig;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void seType(String type) {
 		this.type = type;
 	}
+
 }

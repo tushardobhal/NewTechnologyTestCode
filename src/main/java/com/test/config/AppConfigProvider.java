@@ -1,5 +1,6 @@
 package com.test.config;
 
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,6 +57,12 @@ public class AppConfigProvider {
 	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public KafkaProducer<String, String> kafkaProducer() {
 		return new KafkaProducer<String, String>(kafkaProperties.getKafkaProperties(appConfig().getKafkaProducerConfig()));
+	}
+	
+	@Bean(name = "kafkaConsumer")
+	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public KafkaConsumer<String, String> kafkaConsumer() {
+		return new KafkaConsumer<String, String>(kafkaProperties.getKafkaProperties(appConfig().getKafkaProducerConfig()));
 	}
 
 }

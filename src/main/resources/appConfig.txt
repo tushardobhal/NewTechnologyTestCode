@@ -1,0 +1,19 @@
+applicationConfig
+{
+	id: "applicationConfig",
+	baseURIs: "http://localhost:8091", 
+	bucketName: "spring-boot-sample",
+	kafkaProducerConfig: "sampleProducer", 
+	type: "applicationConfig" 
+}
+
+sampleProducer 
+{
+	id: "sampleProducer", 
+	bootstrapServers: "http://localhost:9092",
+	zookeeperConnect: "http://localhost:2090", 
+	keySerializer: "org.apache.kafka.common.serialization.StringSerializer", 
+	valueSerializer: "org.apache.kafka.common.serialization.StringSerializer", 
+	topic: "test-topic", 
+	type: "kafkaConfig"
+}

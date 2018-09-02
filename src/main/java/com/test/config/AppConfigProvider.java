@@ -1,15 +1,19 @@
 package com.test.config;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import com.couchbase.client.java.AsyncBucket;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.config.kafka.KafkaProperties;
 
 @Configuration
 public class AppConfigProvider {
@@ -19,6 +23,9 @@ public class AppConfigProvider {
 	
 	@Autowired
 	private AppConfigRepository repository;
+	
+	@Autowired
+	private KafkaProperties kafkaProperties;
 	
 	@Bean("appConfig")
 	public AppConfigVO appConfig() {
@@ -43,6 +50,12 @@ public class AppConfigProvider {
 	@Bean(name = "jacksonMapper")
 	public ObjectMapper jacksonMapper() {
 		return new ObjectMapper();
+	}
+	
+	@Bean(name = "kafkaProducer")
+	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public KafkaProducer<String, String> kafkaProducer() {
+		return new KafkaProducer<String, String>(kafkaProperties.getKafkaProperties(appConfig().getKafkaProducerConfig()));
 	}
 
 }

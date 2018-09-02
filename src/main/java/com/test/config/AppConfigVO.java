@@ -12,6 +12,8 @@ public class AppConfigVO {
 	@Field
 	private String bucketName;
 	@Field
+	private String kafkaProducerConfig;
+	@Field
 	private String type;
 	
 	public String getBaseURIs() {
@@ -39,6 +41,18 @@ public class AppConfigVO {
 	}
 
 	public void seType(String type) {
+		this.type = type;
+	}
+
+	public String getKafkaProducerConfig() {
+		return kafkaProducerConfig;
+	}
+
+	public void setKafkaProducerConfig(String kafkaProducerConfig) {
+		this.kafkaProducerConfig = kafkaProducerConfig;
+	}
+
+	public void setType(String type) {
 		this.type = type;
 	}
 }

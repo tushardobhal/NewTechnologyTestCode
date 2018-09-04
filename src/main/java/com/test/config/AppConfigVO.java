@@ -16,6 +16,8 @@ public class AppConfigVO {
 	@Field 
 	private String kafkaConsumerConfig;
 	@Field
+	private String streamsConfig;
+	@Field
 	private String type;
 	
 	public String getBaseURIs() {
@@ -54,6 +56,14 @@ public class AppConfigVO {
 		this.kafkaConsumerConfig = kafkaConsumerConfig;
 	}
 	
+	public String getStreamsConfig() {
+		return streamsConfig;
+	}
+
+	public void setStreamsConfig(String streamsConfig) {
+		this.streamsConfig = streamsConfig;
+	}
+
 	public String getType() {
 		return type;
 	}

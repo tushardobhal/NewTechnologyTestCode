@@ -21,6 +21,7 @@ buildscript {
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-data-couchbase:2.0.4.RELEASE'
 	compile 'org.springframework.kafka:spring-kafka:2.0.4.RELEASE'
+	compile 'org.apache.kafka:kafka-streams:2.0.0'
 }
 
 

@@ -5,6 +5,7 @@ applicationConfig
 	bucketName: "spring-boot-sample",
 	kafkaProducerConfig: "sampleProducer",
 	kafkaConsumerConfig: "sampleConsumer", 
+	streamsConfig: "sampleStreams", 
 	type: "applicationConfig" 
 }
 
@@ -29,4 +30,15 @@ sampleConsumer
 	valueDeserializer: "org.apache.kafka.common.serialization.StringDeserializer", 
 	topic: "test-topic", 
 	type: "kafkaConfig"
+}
+
+sampleStreams {
+	id: "sampleStreams", 
+	applicationId: "test-streams",
+	bootstrapServers: "http://localhost:9092",
+	inputTopic: "input-test-topic", 
+	outputTopic: "output-test-topic",
+	keySerde: "org.apache.kafka.common.serialization.Serdes.StringSerde", 
+	valueSerde: "org.apache.kafka.common.serialization.Serdes.StringSerde", 
+	numThreads: "1"
 }

@@ -2,9 +2,9 @@ package com.test.dao;
 
 public class Name {
 
-	String firstName;
-	String lastName;
-	int age;
+	private String firstName;
+	private String lastName;
+	private int age;
 	
 	public String getFirstName() {
 		return firstName;

@@ -1,5 +1,6 @@
 package com.test.kafka.consumer;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -37,7 +38,7 @@ public class SampleKafkaConsumer implements Runnable {
 		consumer.subscribe(Arrays.asList(topic));
 		try {
 			while(true) {
-				ConsumerRecords<String, String> records = consumer.poll(0);
+				ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(Long.MAX_VALUE));
 				for(ConsumerRecord<String, String> record : records) {
 					consumer.commitAsync();
 					LOGGER.info("Message Received - Key: {}, Value: {}", record.key(), record.value());

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.test.dao.Name;
 
-public class LowLevelStreamsProcessor extends AbstractProcessor<String, Name> {
+public class LowLevelStreamsProcessor extends AbstractProcessor<String, Object> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LowLevelStreamsProcessor.class);
 
 	private ProcessorContext context;
@@ -36,16 +36,17 @@ public class LowLevelStreamsProcessor extends AbstractProcessor<String, Name> {
 	  }
 	 
 	@Override
-	public void process(String key, Name value) {
-		Integer currAge = this.stateStore.get(value.getFirstName());
+	public void process(String key, Object value) {
+		Name name = (Name) value;
+		Integer currAge = this.stateStore.get(name.getFirstName());
 		if(currAge == null) {
-			currAge = value.getAge();
+			currAge = name.getAge();
 		} else {
-			currAge += value.getAge();
+			currAge += name.getAge();
 		}
-		this.stateStore.put(value.getFirstName(), currAge);
+		this.stateStore.put(name.getFirstName(), currAge);
 		
-		context.forward(value.getFirstName(), currAge.toString());
+		context.forward(name.getFirstName(), currAge.toString());
 		context.commit();
 	}
 	

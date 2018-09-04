@@ -32,4 +32,16 @@ public class CouchbaseInsert {
 			LOGGER.error("Error connecting to Couchbase: {}", e.getMessage());
 		}
 	}
+	
+	public void insert(String key, String value) {
+		try {
+			long t1 = System.currentTimeMillis();
+			JsonObject obj = JsonObject.fromJson(value);
+			JsonDocument doc = JsonDocument.create(key, obj);
+			bucket.upsert(doc);
+			LOGGER.info("Time Taken = {} ms", (System.currentTimeMillis() - t1));
+		} catch (Exception e) {
+			LOGGER.error("Error connecting to Couchbase: {}", e.getMessage());
+		}
+	}
 }

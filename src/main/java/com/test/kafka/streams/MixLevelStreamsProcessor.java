@@ -8,12 +8,23 @@ import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.test.couchbase.insert.CouchbaseInsert;
 import com.test.dao.Name;
+import com.test.kafka.producer.SampleKafkaProducer;
 
-public class LowLevelStreamsProcessor extends AbstractProcessor<String, Object> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(LowLevelStreamsProcessor.class);
+@Component
+public class MixLevelStreamsProcessor extends AbstractProcessor<String, Name> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(MixLevelStreamsProcessor.class);
 
+	@Autowired
+	private SampleKafkaProducer producer;
+	
+	@Autowired
+	private CouchbaseInsert cbInsert;
+	
 	private ProcessorContext context;
 	private KeyValueStore<String, Integer> stateStore;
 	
@@ -28,18 +39,15 @@ public class LowLevelStreamsProcessor extends AbstractProcessor<String, Object> 
 	          while (iter.hasNext()) {
 	              KeyValue<String, Integer> entry = iter.next();
 	              LOGGER.info("Sending {} - {}", entry.key, entry.value);
-	              context.forward(entry.key, entry.value.toString());
+	              cbInsert.insert(entry.key, entry.value.toString());
+	              producer.send(entry.key, entry.value.toString());
 	          }
 	          iter.close();
-	          context.commit();
 	      });
 	  }
 	 
 	@Override
-	public void process(String key, Object value) {
-		if(value == null)
-			return;
-		Name name = (Name) value;
+	public void process(String key, Name name) {
 		Integer currAge = this.stateStore.get(name.getFirstName());
 		if(currAge == null) {
 			currAge = name.getAge();
@@ -47,9 +55,6 @@ public class LowLevelStreamsProcessor extends AbstractProcessor<String, Object> 
 			currAge += name.getAge();
 		}
 		this.stateStore.put(name.getFirstName(), currAge);
-		
-		context.forward(name.getFirstName(), currAge.toString());
-		context.commit();
 	}
 	
 }

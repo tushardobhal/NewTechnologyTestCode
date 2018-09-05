@@ -1,5 +1,7 @@
 package com.test.config;
 
+import java.util.Arrays;
+
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,11 @@ import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hazelcast.config.Config;
+import com.hazelcast.config.JoinConfig;
+import com.hazelcast.config.NetworkConfig;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
 import com.test.config.kafka.KafkaProperties;
 
 @Configuration
@@ -63,6 +70,18 @@ public class AppConfigProvider {
 	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public KafkaConsumer<String, String> kafkaConsumer() {
 		return new KafkaConsumer<String, String>(kafkaProperties.getKafkaProperties(appConfig().getKafkaProducerConfig()));
+	}
+	
+	@Bean(name = "hazelcastInstance", destroyMethod = "shutdown")
+	public HazelcastInstance hazelcastInstance() {
+		Config cfg = new Config();
+		cfg.getGroupConfig().setName("test-hazelcast");
+		NetworkConfig network = cfg.getNetworkConfig();
+		JoinConfig join = network.getJoin();
+		join.getMulticastConfig().setEnabled(false);
+		join.getAwsConfig().setEnabled(false);
+		join.getTcpIpConfig().setEnabled(true).setMembers(Arrays.asList(appConfig().getMembersIp().split(","))).setRequiredMember(null);
+		return Hazelcast.newHazelcastInstance(cfg);
 	}
 
 }

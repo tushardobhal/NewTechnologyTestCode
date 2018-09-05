@@ -18,6 +18,8 @@ public class AppConfigVO {
 	@Field
 	private String streamsConfig;
 	@Field
+	private String membersIp;
+	@Field
 	private String type;
 	
 	public String getBaseURIs() {
@@ -62,6 +64,14 @@ public class AppConfigVO {
 
 	public void setStreamsConfig(String streamsConfig) {
 		this.streamsConfig = streamsConfig;
+	}
+
+	public String getMembersIp() {
+		return membersIp;
+	}
+
+	public void setMembersIp(String membersIp) {
+		this.membersIp = membersIp;
 	}
 
 	public String getType() {

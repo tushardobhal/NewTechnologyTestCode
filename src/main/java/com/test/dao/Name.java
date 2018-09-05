@@ -1,6 +1,9 @@
 package com.test.dao;
 
-public class Name {
+import java.io.Serializable;
+
+public class Name implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private String firstName;
 	private String lastName;
@@ -28,6 +31,10 @@ public class Name {
 	
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public String getKey() {
+		return firstName + lastName + age + hashCode();
 	}
 
 	@Override

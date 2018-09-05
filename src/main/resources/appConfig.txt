@@ -6,6 +6,7 @@ applicationConfig
 	kafkaProducerConfig: "sampleProducer",
 	kafkaConsumerConfig: "sampleConsumer", 
 	streamsConfig: "sampleStreams", 
+	membersIp: "127.0.0.1", 
 	type: "applicationConfig" 
 }
 
